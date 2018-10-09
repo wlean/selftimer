@@ -23,6 +23,16 @@ class UserController extends Controller {
     const body = ctx.request.body;
     ctx.body = await ctx.service.user.update({ id, body });
   }
+  async login() {
+    const ctx = this.ctx;
+    const body = ctx.request.body;
+    ctx.body = await ctx.service.user.login(body);
+  }
+
+  async logout() {
+    this.ctx.session = null;
+    this.ctx.body = 'ok';
+  }
 }
 
 module.exports = UserController;

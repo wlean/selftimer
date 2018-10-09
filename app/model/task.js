@@ -33,6 +33,10 @@ module.exports = app => {
         type: DataTypes.UUID,
         allowNull: false,
       },
+      master_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+      },
     }
   );
 
@@ -41,8 +45,17 @@ module.exports = app => {
   };
 
   Task.findByUser = async function(userid) {
-    return await this.findone({
+    return await this.findAll({
       where: { user_id: userid },
+    });
+  };
+
+  Task.show = async function(id) {
+    return await this.findAll({
+      where: {
+        [app.Sequelize.Op.or]: [{ id }, { master_id: id }],
+      },
+      order: [ 'master_id', [ 'master_id', 'DESC' ]],
     });
   };
 

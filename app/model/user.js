@@ -15,6 +15,7 @@ module.exports = app => {
       username: {
         type: DataTypes.STRING(10),
         allowNull: false,
+        unique: true,
       },
       pwd: {
         type: DataTypes.STRING(10),
@@ -24,7 +25,7 @@ module.exports = app => {
   );
 
   User.prototype.associate = function() {
-    app.model.User.hasMany(app.model.Post, { as: 'posts' });
+    app.model.User.hasMany(app.model.Post);
   };
 
   return User;

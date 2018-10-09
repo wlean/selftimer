@@ -34,6 +34,14 @@ class UserService extends Service {
     }
     return user.update(body);
   }
+
+  async login(body) {
+    const user = await this.ctx.model.User.findAll({
+      where: body,
+    });
+    this.ctx.session.user = user[0];
+    return user[0];
+  }
 }
 
 module.exports = UserService;
