@@ -10,7 +10,7 @@ class TaskService extends Service {
       where: {
         user_id: ctx.session.user.id,
       },
-      order: [ 'createdAt', [ 'createdAt', 'DESC' ]],
+      order: [[ 'is_done' ], [ 'createdAt', 'DESC' ]],
       // attributes: [ 'id' ,'createdAt' ],
     });
     return recoreds;

@@ -6,7 +6,7 @@ class UserService extends Service {
   async index() {
     const { ctx } = this;
     const recoreds = await ctx.model.User.findAll({
-      order: [ 'created_at', [ 'created_at', 'DESC' ]],
+      order: [ 'createdAt', [ 'createdAt', 'DESC' ]],
       // attributes: [ 'id' ,'createdAt' ],
     });
     return recoreds;
