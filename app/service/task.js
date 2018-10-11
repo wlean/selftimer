@@ -25,6 +25,7 @@ class TaskService extends Service {
   }
   async create(body) {
     const { ctx } = this;
+    body.user_id = ctx.session.user.id;
     const rst = await ctx.model.Task.create(body);
     return rst;
   }

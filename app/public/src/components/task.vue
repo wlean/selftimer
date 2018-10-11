@@ -1,48 +1,20 @@
 <template>
   <div id="task">
 
-    <Input
-      type="text"
-      name="tasktitle"
-      id="tasktitle" 
-      v-model.trim="tasktitle" 
-      v-on:keyup.enter="addTask" 
-      clearable
-      style="width: 500px">
-      <span slot="prepend">task title</span>
-      <Select slot="append" 
-      v-model="masterid" 
-      v-show="/\^/.test(tasktitle)" 
-      v-on:change='chooseMaster()'>
-        <Option
-          v-for="task in tasks"
-          v-if="!task.is_done"
-          v-bind:value="task.id"
-          :key="task.id">
-          {[ task.title ]}
-        </Option>
-      </Select>
-    </Input>
-    <div v-if="tasks.length" id="tasks">
-      <ol v-bind:style="{ 'list-style-type': 'none' }">
-        <li v-for="task in tasks" 
-        v-bind:style="{ 'list-style-type': 'none', color:task.is_done?'lightgray':'DimGray' }" 
-        v-on:click='showTask(task.id)'
-        :key="task.id">
-          {{ task.title }} {{ task.duration }}
-        </li>
-      </ol>
-    </div>
-    <p v-else>no tasks</p>
+    <TaskInput :tasks="tasks" v-on:addTask="addTask"/>
+    <TaskList :tasks="tasks" />
   </div>
 </template>
 <script>
+import TaskList from './taskList.vue';
+import TaskInput from './taskInput.vue';
 export default {
   data() {
     return {
       tasks: [],
     }
   },
+  components: { TaskList, TaskInput },
   methods: {
     getTasks:function(){
       let self = this;
@@ -53,6 +25,9 @@ export default {
       },function(){
           self.message = 'unavailable userid';
       });
+    },
+    addTask(task){
+      this.tasks.unshift(task);
     },
   },
   mounted: function(){

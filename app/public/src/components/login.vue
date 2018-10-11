@@ -70,7 +70,7 @@ export default {
       .then(function(res){
           self.$Message.success(`register ok, you can login by ${res.body.username}`);
       },function(){
-          console.log('请求失败处理');
+          self.$Message.error(`register failed`);
       });
     },
     logout:function(){
