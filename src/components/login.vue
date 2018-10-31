@@ -37,7 +37,7 @@ import User from './user.vue';
 export default {
   data() {
     return {
-      user: window.user,
+      user: '',
       username: '',
       pwd: '',
       message: '',
@@ -47,31 +47,18 @@ export default {
   methods: {
     login:function(){
       let self = this;
-      console.log(user);
-      self.$http
-      .post(`/login?_csrf=${ window._csrf }`,{
-        username: self.username,
-        pwd: self.pwd
-      })
-      .then(function(res){
-        self.user = res.body;
+      self.$selftimer.login(self.username, self.pwd)
+      .then((user)=>{
+        self.user = user;
         self.$Message.success(`welcome ${self.user.username}`);
-      },function(){
-          self.message = 'unavailable username or password';
-      });
+      })
+      .catch(err=>self.$Message.error(err));
     },
     register:function(){
       let self = this;
-      self.$http
-      .post(`/users?_csrf=${ window._csrf }`,{
-        username: self.username,
-        pwd: self.pwd
-      })
-      .then(function(res){
-          self.$Message.success(`register ok, you can login by ${res.body.username}`);
-      },function(){
-          self.$Message.error(`register failed`);
-      });
+      self.$selftimer.register(self.username, self.pwd)
+      .then(()=>self.$Message.success(`register success`))
+      .catch(err=>self.$Message.error(err));
     },
     logout:function(){
       window.user = null;

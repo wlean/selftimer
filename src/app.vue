@@ -1,20 +1,21 @@
 <template>
   <div id="app">
-		<h1>{{ appname }} {{ _csrf }}</h1>
+    <Setting/>
+		<h1>{{ appname }}</h1>
     <Login/>
 	</div>
 </template>
 <script>
 import Login from './components/login.vue';
+import Setting from './components/setting.vue';
 
 export default {
   data() {
     return {
       appname: 'selftimer',
-      _csrf: '',
     }
   },
-  components: { Login },
+  components: { Login, Setting },
 }
 </script>
 <style>

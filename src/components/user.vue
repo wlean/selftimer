@@ -1,6 +1,6 @@
 <template>
   <div id="user">
-    <Button @click="show" type="primary">{{ user.username }}</Button>
+    <Button @click="show" type="primary" icon="ios-person" >{{ user.username }}</Button>
     <Drawer title="User Info" :closable="false" v-model="open">
       <p>username: {{ user.username }}</p>
       <p>id: {{ user.id }}</p>
