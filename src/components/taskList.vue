@@ -1,26 +1,14 @@
 <template>
   
-  <Collapse v-model="nowid" accordion v-if="tasks.length" id="tasks">
-    <Panel 
-    v-if="doing"
-    id="doing"
-    style="{ 'background-color': #5cb85c }"
-    name="doing"
-    :key="doing.id"
-    hide-arrow=true>
-      {{ doing.title }}  {{ doing.duration }}
-      <p slot="content">
-        <TaskDetail v-if="nowid==doing.id" :taskid="doing.id"/>
-      </p>
-    </Panel>
+  <Collapse v-model="nowid" accordion v-if="tasks.length" id="tasks" simple>
     <Panel v-for="task in tasks"
     :style="{ 'background-color': task.is_done?'lightgray':'' }"
     :name="task.id"
     :key="task.id"
     hide-arrow=true>
-      {{ task.title }}  {{ task.duration }}
+      {{ task.title }}  {{ task.id }}
       <p slot="content">
-        <TaskDetail v-if="nowid==task.id" :taskid="task.id"/>
+        <TaskDetail v-if="nowid==task.id" :taskId="task.id"/>
       </p>
     </Panel>
   </Collapse>
@@ -36,7 +24,6 @@ export default {
   data(){
     return {
       nowid: '',
-      doing: null,
     }
   },
   methods:{

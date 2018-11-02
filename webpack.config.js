@@ -28,7 +28,17 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        use: [
+          {
+              loader: 'vue-loader',
+          },
+          {
+              loader: 'iview-loader',
+              options: {
+                  prefix: false,
+              },
+          },
+        ],
       },
       {
         test: /\.css$/,

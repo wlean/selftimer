@@ -1,13 +1,13 @@
 <template>
   <i-circle
-    :size="500-32"
+    :size="250"
     :trail-width="4"
     :stroke-width="5"
-    :percent="master.percent"
+    :percent="now.percent"
     stroke-linecap="square"
     stroke-color="#43a3fb">
     <div class="demo-Circle-custom">
-        <h1>{{ master.title }}</h1>
+        <h1>{{ now.title }}</h1>
         <p>total duration:{{ total.duration }}</p>
         <p>children tasks:{{ tasks.length-1 }}</p>
         <Button type="primary" 
@@ -21,11 +21,11 @@
 <script>
 export default {
   props:{
-    taskid:'',
+    taskId:'',
   },
   data(){
     return {
-      master: '',
+      now: '',
       tasks: [],
       total: {
         duration: 0,
@@ -37,21 +37,20 @@ export default {
   },
   mounted: function(){
     let self = this;
-    self.$http
-    .get(`/tasks/${self.taskid}/?_csrf=${window._csrf}`)
-    .then(function(res){
-        self.tasks = res.body;
-        self.tasks.forEach(task=>{
-          if(task.id == self.taskid){
-            self.master = task;
-            self.master.percent=(task.duration%(15*60))*100/(15*60);
-            console.log(self.master.percent);
-          }
-          self.total.duration = self.total.duration+task.duration;
-        })
-    },function(){
-        
-    });
+    self.$selftimer.taskInfo(self.taskId)
+    .then(tasks=>{
+      console.log(tasks);
+      self.tasks = tasks;
+      self.tasks.forEach(task=>{
+        if(task.id == self.taskId){
+          self.now = task;
+          let wd = self.$selftimer.config.workDuration;
+          self.now.percent=(task.duration%(wd*60))*100/(wd*60);
+        }
+        self.total.duration = self.total.duration+task.duration;
+      })
+    })
+    .catch(err=>self.$Message.error(err));
   }
 }
 </script>

@@ -1,8 +1,18 @@
 <template>
   <div id="app">
-    <Setting/>
-		<h1>{{ appname }}</h1>
-    <Login/>
+    <Layout>
+      <Setting/>
+
+      <Header class="header" style="background-color: #2e7bcf">
+		    {{ appname }}
+      </Header>
+
+      <Content>
+        <Login/>
+      </Content>
+
+      <Footer class="footer">©wlpking</Footer>
+    </Layout>
 	</div>
 </template>
 <script>
@@ -19,12 +29,14 @@ export default {
 }
 </script>
 <style>
-  #app {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+  .header {
+    font-size: xx-large;
+    color: cornsilk;
+    text-align: center;
+    background-color: #2e7bcf;
   }
-  h1 {
+
+  .footer {
     text-align: center;
   }
 </style>

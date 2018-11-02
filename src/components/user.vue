@@ -1,12 +1,18 @@
 <template>
   <div id="user">
-    <Button @click="show" type="primary" icon="ios-person" >{{ user.username }}</Button>
+    <Button @click="show" type="default" icon="ios-person" ></Button>
     <Drawer title="User Info" :closable="false" v-model="open">
-      <p>username: {{ user.username }}</p>
-      <p>id: {{ user.id }}</p>
-      <p>password: {{ user.pwd}}</p>
-      <p>create time: {{ user.createdAt}}</p>
-      <Button v-on:click="logout" shape="circle" type="error">logout</Button>
+      <div id="userInfo" v-if="userInfo">
+        <p>username: {{ userInfo.username }}</p>
+        <p>id: {{ userInfo.id }}</p>
+        <p>password: {{ userInfo.pwd}}</p>
+        <p>create time: {{ userInfo.createdAt}}</p>
+        <Button v-on:click="logout" shape="circle" type="error">logout</Button>
+      </div>
+
+      <div id="userInfo" v-else>
+        Can`t found user information.
+      </div>
     </Drawer>
   </div>
 </template>
@@ -15,6 +21,7 @@ export default {
   data() {
     return {
       open: false,
+      userInfo: null,
     };
   },
   props: {
@@ -26,31 +33,32 @@ export default {
   methods: {
     show:function(){
       let self = this;
-      self.$http
-      .get(`/users/${self.user.id}?_csrf=${ window._csrf }`)
-      .then(function(res){
-        self.user = res.body;
+      self.$selftimer.userInfo(self.user.username)
+      .then((userInfo)=>{
+        self.userInfo = userInfo;
         self.open = true;
-      },function(){
-          self.message = 'logout failed';
-      });
+      })
+      .catch(err=>self.$Message.error(err));
     },
     logout:function(){
       let self = this;
-      self.$http
-      .get(`/logout?_csrf=${ window._csrf }`)
-      .then(function(res){
-        self.$Message.success(`bey ${self.user.username}`);
+      self.$selftimer.logout()
+      .then(()=>{
+        self.user = null;
+        self.userInfo = null;
         self.open = false;
         self.$emit('logout');
-      },function(){
-          self.message = 'logout failed';
-      });
+      })
+      .catch(err=>self.$Message.error(err));
     },
   },
 }
 </script>
 
 <style>
-
+#user {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
 </style>

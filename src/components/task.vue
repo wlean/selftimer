@@ -1,9 +1,10 @@
 <template>
-  <div id="task">
-
+<Row type="flex" justify="center">
+  <Col span="8" id="task">
     <TaskInput :tasks="tasks" v-on:addTask="addTask"/>
     <TaskList :tasks="tasks" />
-  </div>
+  </Col>
+</Row>
 </template>
 <script>
 import TaskList from './taskList.vue';
@@ -18,16 +19,15 @@ export default {
   methods: {
     getTasks:function(){
       let self = this;
-      self.$http
-      .get(`/tasks?&_csrf=${window._csrf}`)
-      .then(function(res){
-        self.tasks = res.body;
-      },function(){
-          self.message = 'unavailable userid';
-      });
+      self.$selftimer.getTasks()
+      .then(tasks=>self.tasks=tasks)
+      .catch(err=>self.$Message.error(err));
     },
     addTask(task){
-      this.tasks.unshift(task);
+      let self = this;
+      self.$selftimer.addTask(task)
+      .then(tasks=>self.tasks=tasks)
+      .catch(err=>self.$Message.error(err));
     },
   },
   mounted: function(){

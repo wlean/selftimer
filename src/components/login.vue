@@ -1,34 +1,36 @@
 <template>
-  <div v-if="user" id="login">
-    <br>
-    <User :user="user" v-on:logout="logout"/>
-    <Task/>
-  </div>
-  <!-- login or register -->
-  <div v-else id="login">
+<div v-if="user">
+  <User :user="user" v-on:logout="logout"/>
+  <Task/>
+</div>
+<Row v-else type="flex" justify="center">
+  <Col span="6">
+  
+    <!-- login or register -->
+    <div id="login">
 
-    <Input 
-    type="text" 
-    name="username" 
-    id="username" 
-    v-model="username" 
-    class="center"
-    style="width: 200px">
-      <span slot="prepend">username</span>
-      <!-- <span slot="append"></span> -->
-    </Input>
-    <Input 
-    type="password" 
-    name="pwd" 
-    id="pwd" 
-    v-model="pwd" 
-    class="center"
-    style="width: 200px">
-      <span slot="prepend">password</span>
-    </Input>
-    <Button v-on:click="register" shape="circle" type="info">register</Button>
-    <Button v-on:click="login" shape="circle" type="success">login</Button>
-  </div>
+      <Input 
+      type="text" 
+      name="username" 
+      id="username" 
+      v-model="username"
+      class="slef-input">
+        <span slot="prepend">username</span>
+        <!-- <span slot="append"></span> -->
+      </Input>
+      <Input 
+      type="password" 
+      name="pwd" 
+      id="pwd" 
+      v-model="pwd"
+      class="slef-input">
+        <span slot="prepend">password</span>
+      </Input>
+      <Button v-on:click="register" shape="circle" type="info">register</Button>
+      <Button v-on:click="login" shape="circle" type="success">login</Button>
+    </div>
+  </Col>
+</Row>
 </template>
 <script>
 import Task from './task.vue';
@@ -61,18 +63,18 @@ export default {
       .catch(err=>self.$Message.error(err));
     },
     logout:function(){
-      window.user = null;
-      this.user = null;
+      let self = this;
+      self.user = null;
     },
   }
 }
 </script>
 <style>
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
 #login {
   text-align: center;
+}
+
+.slef-input {
+  margin: 10px 5px;
 }
 </style>

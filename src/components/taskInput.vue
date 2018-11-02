@@ -1,16 +1,15 @@
 <template>
-<div id="task">
+<div id="taskInput">
   <Input type="text"
   name="tasktitle"
   id="tasktitle" 
   v-model.trim="tasktitle" 
   v-on:keyup.native.enter="addTask" 
-  clearable
-  style="width: 500px">
+  clearable>
     <span slot="prepend">task title</span>
     <Select
     v-show="/\^/.test(tasktitle)"
-    v-model="masterid" 
+    v-model="masterId" 
     slot="append" 
     v-on:change='chooseMaster'>
       <Option
@@ -29,7 +28,7 @@ export default {
   data(){
     return {
       tasktitle: '',
-      masterid: null,
+      masterId: null,
     };
   },
   props:{
@@ -38,30 +37,16 @@ export default {
   methods: {
     addTask:function(){
       let self = this;
-      self.$http
-      .post(`/tasks?_csrf=${window._csrf}`,{
-        master_id: self.masterid,
+      self.$emit('addTask',{
+        masterId: self.masterId,
         title: self.tasktitle
-      })
-      .then(function(res){
-          self.$emit('addTask',res.body);
-          self.masterid = null;
-          self.tasktitle = '';
-          self.$Message.success(`add task success`);
-      },function(){
-          
       });
-    },
-    chooseMaster(){
-      console.log('master');
-      let self = this;
-      while(/\^/.test(self.tasktitle)){
-        self.tasktitle = self.tasktitle.replace(/\^/,'');
-      }
+      self.masterId = null;
+      self.tasktitle = null;
     },
   },
   watch:{
-    masterid: function (val, oldVal) {
+    masterId: function (val, oldVal) {
       let self = this;
       while(/\^/.test(self.tasktitle)){
         self.tasktitle = self.tasktitle.replace(/\^/,'');
