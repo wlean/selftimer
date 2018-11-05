@@ -83,8 +83,6 @@ export default {
 
 <style>
 #setting {
-  position: fixed;
-  top: 10px;
-  left: 10px;
+  float: left;
 }
 </style>

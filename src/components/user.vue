@@ -57,8 +57,6 @@ export default {
 
 <style>
 #user {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+  float: right;
 }
 </style>

@@ -5,10 +5,12 @@
       <Header class="header" style="background-color: #2e7bcf">
         <Setting/>
 		    {{ appname }}
+        <User v-if="user" :user="user" v-on:logout="logout"/>
       </Header>
 
       <Content>
-        <Login/>
+        <Task v-if="user"/>
+        <Login v-else v-on:login="login"/>
       </Content>
 
       <Footer class="footer">©wlpking</Footer>
@@ -18,14 +20,25 @@
 <script>
 import Login from './components/login.vue';
 import Setting from './components/setting.vue';
+import Task from './components/task.vue';
+import User from './components/user.vue';
 
 export default {
   data() {
     return {
+      user: '',
       appname: 'selftimer',
     }
   },
-  components: { Login, Setting },
+  methods: {
+    login(user){
+      this.user = user;
+    },
+    logout(){
+      this.user = null;
+    }
+  },
+  components: { Login, Setting, Task, User },
 }
 </script>
 <style>

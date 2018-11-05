@@ -1,9 +1,5 @@
 <template>
-<div v-if="user">
-  <User :user="user" v-on:logout="logout"/>
-  <Task/>
-</div>
-<Row v-else type="flex" justify="center">
+<Row type="flex" justify="center">
   <Col span="6">
   
     <!-- login or register -->
@@ -33,26 +29,21 @@
 </Row>
 </template>
 <script>
-import Task from './task.vue';
-import User from './user.vue';
-
 export default {
   data() {
     return {
-      user: '',
       username: '',
       pwd: '',
       message: '',
     }
   },
-  components: { Task, User },
   methods: {
     login:function(){
       let self = this;
       self.$selftimer.login(self.username, self.pwd)
       .then((user)=>{
-        self.user = user;
-        self.$Message.success(`welcome ${self.user.username}`);
+        self.$emit('login',user);
+        self.$Message.success(`welcome ${user.username}`);
       })
       .catch(err=>self.$Message.error(err));
     },
@@ -61,10 +52,6 @@ export default {
       self.$selftimer.register(self.username, self.pwd)
       .then(()=>self.$Message.success(`register success`))
       .catch(err=>self.$Message.error(err));
-    },
-    logout:function(){
-      let self = this;
-      self.user = null;
     },
   }
 }
