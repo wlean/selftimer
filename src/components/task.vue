@@ -23,7 +23,7 @@ export default {
   },
   components: { TaskList, TaskInput },
   methods: {
-    getTasks:function(){
+    getTasks(){
       let self = this;
       self.$selftimer.getTasks()
       .then(tasks=>self.tasks=tasks)
@@ -36,7 +36,7 @@ export default {
       .catch(err=>self.$Message.error(err));
     },
   },
-  mounted: function(){
+  mounted(){
     this.getTasks();
   },
 }

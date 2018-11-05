@@ -31,7 +31,7 @@ export default {
     },
   },
   methods: {
-    show:function(){
+    show(){
       let self = this;
       self.$selftimer.userInfo(self.user.username)
       .then((userInfo)=>{
@@ -40,7 +40,7 @@ export default {
       })
       .catch(err=>self.$Message.error(err));
     },
-    logout:function(){
+    logout(){
       let self = this;
       self.$selftimer.logout()
       .then(()=>{

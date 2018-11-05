@@ -41,7 +41,7 @@ export default {
   methods:{
 
   },
-  mounted: function(){
+  mounted(){
     let self = this;
     self.$selftimer.taskInfo(self.taskId)
     .then(tasks=>{

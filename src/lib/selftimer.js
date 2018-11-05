@@ -19,7 +19,7 @@ export default {
       users : {},
       tasks : {},
       user : '',
-      setConfig : function(config){
+      setConfig(config){
         let self = this;
         if(!self.serverUrl) {
           self.config = Object.assign(self.config, config);
@@ -35,7 +35,7 @@ export default {
           return Promise.reject(error);
         });
       },
-      getConfig : function(){
+      getConfig(){
         let self = this;
         if(self.serverUrl) return self.$http.get(`${self.serverUrl}/config`)
         .then(function(res){
@@ -45,13 +45,13 @@ export default {
         });
         return Promise.resolve(self.config);
       },
-      getTasks : function(){
+      getTasks(){
         let self = this;
         if(self.serverUrl) return self.$http.get(`${self.serverUrl}/tasks`)
         .then(res=>{return Promise.resolve(res.body)});
         return Promise.resolve(self.tasks[self.user.username] || []);
       },
-      addTask : function(task){
+      addTask(task){
         let self = this;
         if(self.serverUrl) return self.$http.post(`${self.serverUrl}/tasks`,task)
         .then(res=>{
@@ -73,7 +73,7 @@ export default {
         }));
         return Promise.resolve(self.tasks[self.user.username]);
       },
-      taskInfo : function(taskId) {
+      taskInfo(taskId) {
         let self = this;
         if(self.serverUrl) return self.$http.get(`${self.serverUrl}/tasks/${taskId}`)
         .then(res=>{
@@ -84,7 +84,7 @@ export default {
         );
         return Promise.resolve(taskInfo);
       },
-      register : function(username, pwd){
+      register(username, pwd){
         let self = this; 
         if(self.serverUrl) return selftimer.$http.post(`${self.serverUrl}/register`,{
           username,
@@ -97,7 +97,7 @@ export default {
         self.users[username] = pwd;
         return Promise.resolve();
       },
-      login : function(username, pwd){
+      login(username, pwd){
         let self = this; 
         if(self.serverUrl) return selftimer.$http.get(`${self.serverUrl}/login`)
         .then(function(res){
@@ -110,7 +110,7 @@ export default {
           username
         });
       },
-      userInfo : function(username) {
+      userInfo(username) {
         let self = this;
         if(self.serverUrl) return selftimer.$http.get(`${self.serverUrl}/user/${username}`)
         .then(function(res){
@@ -118,7 +118,7 @@ export default {
         });
         return Promise.resolve(self.user);
       },
-      logout : function() {
+      logout() {
         let self = this;
         self.user = null;
         if(self.serverUrl) return selftimer.$http.get(`${self.serverUrl}/logout`)
@@ -137,7 +137,7 @@ export default {
         };
         return Promise.resolve();
       },
-      sync : function(){
+      sync(){
         
       },
     }

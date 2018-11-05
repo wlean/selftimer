@@ -35,7 +35,7 @@ export default {
     tasks:[]
   },
   methods: {
-    addTask:function(){
+    addTask(){
       let self = this;
       self.$emit('addTask',{
         masterId: self.masterId,
@@ -46,7 +46,7 @@ export default {
     },
   },
   watch:{
-    masterId: function (val, oldVal) {
+    masterId(val, oldVal) {
       let self = this;
       while(/\^/.test(self.tasktitle)){
         self.tasktitle = self.tasktitle.replace(/\^/,'');

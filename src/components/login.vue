@@ -38,7 +38,7 @@ export default {
     }
   },
   methods: {
-    login:function(){
+    login(){
       let self = this;
       self.$selftimer.login(self.username, self.pwd)
       .then((user)=>{
@@ -47,7 +47,7 @@ export default {
       })
       .catch(err=>self.$Message.error(err));
     },
-    register:function(){
+    register(){
       let self = this;
       self.$selftimer.register(self.username, self.pwd)
       .then(()=>self.$Message.success(`register success`))
