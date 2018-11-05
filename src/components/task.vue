@@ -1,10 +1,16 @@
 <template>
-<Row type="flex" justify="center">
-  <Col span="8" id="task">
-    <TaskInput :tasks="tasks" v-on:addTask="addTask"/>
-    <TaskList :tasks="tasks" />
-  </Col>
-</Row>
+<div id="task">
+  <Row type="flex" justify="center">
+    <Col span="8">
+      <TaskInput :tasks="tasks" v-on:addTask="addTask"/>
+    </Col>
+  </Row>
+  <Row type="flex" justify="center">
+    <Col span="8">
+      <TaskList :tasks="tasks"/>
+    </Col>
+  </Row>
+</div>
 </template>
 <script>
 import TaskList from './taskList.vue';

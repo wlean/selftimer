@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Layout>
-      <Setting/>
 
       <Header class="header" style="background-color: #2e7bcf">
+        <Setting/>
 		    {{ appname }}
       </Header>
 

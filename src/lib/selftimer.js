@@ -12,9 +12,9 @@ export default {
         playWorkBGM : false,
         restBGM : [],
         playRestBGM : false,
-        playing : {
+      },
+      playing : {
 
-        }
       },
       users : {},
       tasks : {},
@@ -66,10 +66,10 @@ export default {
           createdAt: new Date(),
         });
         if(!self.tasks[self.user.username]) self.tasks[self.user.username] = [Object.assign(task,{
-          id:1 
+          id:'1' 
         })];
         else self.tasks[self.user.username].unshift(Object.assign(task, {
-          id: self.tasks[self.user.username].length+1,
+          id: `${self.tasks[self.user.username].length+1}`,
         }));
         return Promise.resolve(self.tasks[self.user.username]);
       },
