@@ -21,19 +21,9 @@ export default {
       user : '',
       setConfig(config){
         let self = this;
-        if(!self.serverUrl) {
-          self.config = Object.assign(self.config, config);
-          return Promise.resolve();
-        }
-        return self.$http.put(`${self.serverUrl}/config`)
-        .then(function(res){
-          self.$Message.success(`set config success`);
-          return Promise.resolve();
-        },function(error){
-          console.error(error);
-          self.$Message.error(`set config failed`);
-          return Promise.reject(error);
-        });
+        self.config = Object.assign(self.config, config);
+        if(self.serverUrl) return self.$http.put(`${self.serverUrl}/config`);
+        return Promise.resolve();
       },
       getConfig(){
         let self = this;

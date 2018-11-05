@@ -74,8 +74,11 @@ export default {
     
   },
   watch:{
-    config(){
-
+    config(val, oldval){
+      let self = this;
+      self.$selftimer.setConfig()
+      .then(config=>self.$message.success(`config update`))
+      .catch(err=>self.$Message.error(err));
     }
   },
   mounted() {
