@@ -56,5 +56,7 @@ export default {
 }
 </script>
 <style>
-
+#taskInput {
+  margin: 10px 0px;
+}
 </style>

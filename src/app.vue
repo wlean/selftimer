@@ -3,7 +3,7 @@
     <Layout>
 
       <Header class="header" style="background-color: #2e7bcf">
-        <Setting/>
+        <Setting :user="user"/>
 		    {{ appname }}
         <User v-if="user" :user="user" v-on:logout="logout"/>
       </Header>

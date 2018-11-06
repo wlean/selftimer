@@ -10,7 +10,7 @@
       <TaskDetail slot="content" v-if="nowid==task.id" :taskId="task.id"/>
     </panel>
   </Collapse>
-  <p v-else>no tasks</p>
+  <p id="tasks" v-else>no tasks</p>
 </template>
 <script>
 import TaskDetail from './taskDetail.vue';
@@ -31,6 +31,6 @@ export default {
 </script>
 <style>
 #tasks {
-  text-align: left;
+  text-align: center;
 }
 </style>
