@@ -13,9 +13,7 @@ export default {
         restBGM : [],
         playRestBGM : false,
       },
-      playing : {
-
-      },
+      playing : null,
       users : {},
       tasks : {},
       user : '',
@@ -130,6 +128,11 @@ export default {
       sync(){
         
       },
+      loadTask(taskId, ...args){
+        let self = this;
+        self.playing = self.tasks[self.user.username][taskId];
+        lala.emit('changePlayingTask', ...args);
+      }
     }
   }
 }

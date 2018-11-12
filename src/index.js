@@ -15,3 +15,17 @@ let app = new Vue({
   render: h => h(App),
 });
 window.selftimer = app;
+window.lala = {
+  map:{},
+  on(name, listener){
+    if(typeof listener !== 'function') return;
+    if(this.map[name]) return this.map[name].push(listener);
+    this.map[name] = [listener];
+  },
+  emit(name, ...args){
+    if(!this.map[name] || this.map[name].length == 0) return;
+    [].forEach((fn)=>{
+      fn(...args);
+    });
+  }
+}
